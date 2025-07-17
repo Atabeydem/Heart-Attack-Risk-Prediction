@@ -1,0 +1,15 @@
+# Models and large files
+models/
+*.joblib
+
+# Data files (optional)
+data/*.csv
+
+# Python cache and environment files
+__pycache__/
+*.py[cod]
+.env
+.DS_Store
+
+# Jupyter Notebook checkpoints (if used)
+.ipynb_checkpoints/
