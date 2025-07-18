@@ -1,11 +1,9 @@
 import joblib
+import numpy as np
 import pandas as pd
 
-model = joblib.load("models/final_model.joblib")
-scaler = joblib.load("models/scaler.joblib")
-
 def get_user_input():
-    print("Please enter the following health information:")
+    print("\n📊 Please enter the following health information:")
     age = float(input("Age: "))
     sex = int(input("Sex (0 = female, 1 = male): "))
     cp = int(input("Chest Pain Type (0–3): "))
@@ -18,21 +16,25 @@ def get_user_input():
     oldpeak = float(input("Oldpeak (ST depression): "))
     st_slope = int(input("ST Slope (0–2): "))
 
-    return pd.DataFrame([[
-        age, sex, cp, resting_bp, chol, fasting_bs, rest_ecg,
-        max_hr, ex_angina, oldpeak, st_slope
-    ]], columns=[
-        'Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol',
-        'FastingBS', 'RestingECG', 'MaxHR', 'ExerciseAngina',
-        'Oldpeak', 'ST_Slope'
-    ])
+    return pd.DataFrame([[age, sex, cp, resting_bp, chol, fasting_bs, rest_ecg,
+                          max_hr, ex_angina, oldpeak, st_slope]],
+                        columns=[
+                            'Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol',
+                            'FastingBS', 'RestingECG', 'MaxHR', 'ExerciseAngina',
+                            'Oldpeak', 'ST_Slope'
+                        ])
 
 if __name__ == "__main__":
+    model = joblib.load('models/best_model_combined.joblib')
     user_df = get_user_input()
-    user_df_scaled = scaler.transform(user_df)
-    prediction = model.predict_proba(user_df_scaled)[0][1]
+    prediction = model.predict_proba(user_df)[0][1]
     print(f"\n🫀 Estimated Heart Disease Risk: {prediction:.2%}")
-if prediction > 0.5:
-    print("⚠️  High Risk! Please consult a doctor.")
+    
+if prediction < 0.2:
+    print("🟢 Low Risk")
+elif prediction < 0.6:
+    print("🟡 Moderate Risk")
 else:
-    print("✅  Low Risk. Keep monitoring your health.")
+    print("🔴 High Risk")
+
+
