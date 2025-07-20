@@ -3,4 +3,5 @@ scikit-learn
 imblearn
 xgboost
 joblib
-echo streamlit >> requirements.txt
+fastapi
+uvicorn
