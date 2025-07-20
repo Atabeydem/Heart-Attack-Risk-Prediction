@@ -73,6 +73,7 @@ docker run -p 8000:8000 -v "${PWD}/models:/app/models" heart-api
 ### 3. Access the API
 
 - Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Note: The API documentation is available at http://localhost:8000/docs when the server is running locally.
 - Example prediction (via `/predict` endpoint):
 
 ```json
