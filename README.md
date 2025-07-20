@@ -121,7 +121,3 @@ Response:
 - Unit testing and CI/CD pipelines
 
 ---
-
-## 📄 License
-
-MIT License — feel free to use and modify this project.
